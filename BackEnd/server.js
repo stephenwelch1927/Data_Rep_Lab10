@@ -55,6 +55,17 @@ app.get('/api/movies/:id',(req, res)=>{
         res.json(data);
     })
 })
+//Server Side App.put that will find and update a record
+//Listen for this method at server
+app.put('/api/movies/:id', (req, res) =>{
+    console.log("Update" +req.params.id);
+    //Update from database MovieModel
+    movieModel.findByIdAndUpdate(req.params.id, 
+        req.body,
+        (err, data) =>{
+            res.status(200).send(data);
+        })
+})
 
 app.delete('/api/movies/:id', (req, res)=>{
     console.log(req.params.id);
@@ -74,7 +85,9 @@ app.post('/api/movies', (req, res) => {
         Year:req.body.Year,
         Poster:req.body.Poster
     })
-    .then()
+    .then(()=>{
+        res.send("Movie Added")
+    })
     .catch();
 
     res.send('Data Recieved!');
